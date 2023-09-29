@@ -1,7 +1,6 @@
 var boxes = [];
-var boxes1 = [];
 
-var nboxes = 51;
+var nboxes = 100000;
 
 var canvas;
 
@@ -17,50 +16,36 @@ function setup() {
     for (i = 0; i < nboxes; i++) {
         boxes[i] = new myBox();
     }
-    for (i = 0; i < nboxes; i++) {
-        boxes1[i] = new myBox1();
-    }
     
 }
 
 function draw() {
     background(255);
-    translate(-1250,-500)
-    push();
-    boxes.forEach(function(){
-        push();
-        rotateZ(frameCount * 0.005)
-        boxes[0].display();
-        pop();
-        translate(50,0)
-    }) 
-    pop();
+    translate(-windowWidth / 2, -windowHeight / 2)
 
-    push();
-    translate(0,30)
-    boxes.forEach(function(){
+    // Make the squares cover the entire page
+    scale(windowWidth / 1250)
+
+    // Spin the squares
+    //rotateZ(frameCount * 0.005)
+
+    // Display the squares
+   boxes.forEach((box, index) => {
         push();
-        rotateZ(frameCount * 0.005)
-        boxes1[0].display();
+        translate((index % 100) * 10,
+          Math.floor(index / 100) * 10 , 0);
+        box.display();
         pop();
-        translate(50,0)
     })
-    pop();
 }
 
 
 function myBox() {
     this.display = function () {
-        box(20)
+        box(10)
     }
 }
 
-function myBox1() {
-    this.display = function () {
-        translate(0,0)
-        box(20)
-    }
-}
 function animation(item, index, arr){
     
 }
