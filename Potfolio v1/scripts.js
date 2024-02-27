@@ -1,10 +1,6 @@
-var customTime = 1;
-var posY;
-
 var boxes = [];
-var boxes1 = [];
 
-var nboxes = 51;
+var nboxes = 100000;
 
 var canvas;
 
@@ -20,56 +16,36 @@ function setup() {
     for (i = 0; i < nboxes; i++) {
         boxes[i] = new myBox();
     }
-    for (i = 0; i < nboxes; i++) {
-        boxes1[i] = new myBox1();
-    }
     
 }
-for(i = 0; i < 20; i++){
-    setTimeout(function(){
-        customTime++;
-        posY = customTime * 30;
-    }, 6000)
-}
-function draw() 
-{
+
+function draw() {
     background(255);
-    translate(-1250,-500)
-    push();
-    boxLoop();
-    pop();
-    translate(0,posY)
-    push();
-    boxLoop();
-    pop();
+    translate(-windowWidth / 2, -windowHeight / 2)
+
+    // Make the squares cover the entire page
+    scale(windowWidth / 1250)
+
+    // Spin the squares
+    //rotateZ(frameCount * 0.005)
+
+    // Display the squares
+   boxes.forEach((box, index) => {
+        push();
+        translate((index % 100) * 10,
+          Math.floor(index / 100) * 10 , 0);
+        box.display();
+        pop();
+    })
 }
 
 
 function myBox() {
-    this.display = function () 
-    {
-        box(25)
+    this.display = function () {
+        box(10)
     }
 }
 
-function myBox1() 
-{
-    this.display = function () 
-    {
-        translate(0,0)
-        box(25)
-    }
+function animation(item, index, arr){
+    
 }
-
-function boxLoop()
-{
-    boxes.forEach(function()
-        {
-            push();
-            rotateZ(frameCount * 0.005)
-            boxes[0].display();
-            pop();
-            translate(50,0)
-        })
-}
-
